@@ -502,12 +502,12 @@
         <div class="visualizer-card">
           <div class="visualizer-head">
             <strong>Subject scale visualizer</strong>
-            <span>Model: 1.75m</span>
+            <span>Model: 1.70m</span>
           </div>
           <div class="visual-stage" id="visualStage">
             <div class="sensor-box sensor-a-box" id="sensorABox"><span>Sensor A</span></div>
             <div class="sensor-box sensor-b-box" id="sensorBBox"><span>Sensor B</span></div>
-            <div class="person" id="personVisual" aria-label="1.75 meter subject visual">
+            <div class="person" id="personVisual" aria-label="1.70 meter subject visual">
               <svg viewBox="0 0 120 300" preserveAspectRatio="xMidYMax meet">
                 <path d="M60 18c17 0 30 14 30 31s-13 31-30 31-30-14-30-31 13-31 30-31Z" fill="currentColor" opacity="0.95"/>
                 <path d="M47 86h26c11 0 19 8 22 21l13 59c2 9-4 16-12 16h-8l10 91c1 8-5 15-13 15H75c-7 0-12-5-13-12l-5-64-5 64c-1 7-6 12-13 12H25c-8 0-14-7-13-15l10-91h-8c-8 0-14-7-12-16l13-59c3-13 11-21 22-21Z" fill="currentColor" opacity="0.95"/>
@@ -877,6 +877,8 @@
       dofBar: q("dofBar"), copyBtn: q("copyBtn")
     };
 
+    const SUBJECT_HEIGHT_M = 1.70;
+
     function clearSelect(sel) { sel.innerHTML = ""; }
     function addOption(sel, label, value = label) { sel.add(new Option(label, value)); }
     function firstKey(obj) { return Object.keys(obj)[0]; }
@@ -1048,8 +1050,10 @@
       els.sensorABox.style.top = `${sensorATop}%`;
       els.sensorBBox.style.top = `${sensorBTop}%`;
 
-      const subjectHeightM = 1.75;
-      const eyeFractionFromTop = 0.165;
+      const subjectHeightM = SUBJECT_HEIGHT_M;
+      // WC-style icon has the "eye level" slightly higher than a realistic figure.
+      // This keeps framing closer to common portrait simulator compositions.
+      const eyeFractionFromTop = 0.12;
       const frameHeightAtDistanceM = Math.max(0.001, distanceM) * (sensorA.h / focal);
       const subjectFractionInSensorA = subjectHeightM / frameHeightAtDistanceM;
       const personHeightInStage = subjectFractionInSensorA * boxAHeight;
