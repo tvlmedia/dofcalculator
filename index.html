@@ -375,7 +375,6 @@
 
         <div class="buttons">
           <button class="primary" id="copyBtn">Copy result</button>
-          <button id="resetBtn">Reset</button>
         </div>
 
         <div class="note">
@@ -614,6 +613,58 @@
           "9K 16:9": { w: 25.195, h: 14.198 },
           "9K 6:5": { w: 22.272, h: 18.583 }
         }
+      },
+
+      "Film / Analog": {
+        "8mm Film": {
+          "Regular 8mm 4:3 gate": { w: 4.80, h: 3.50 },
+          "Super 8mm 4:3 gate": { w: 5.79, h: 4.01 },
+          "Super 8mm widescreen crop 16:9": { w: 5.79, h: 3.26 },
+          "Super 8mm 2.39 crop": { w: 5.79, h: 2.42 }
+        },
+        "16mm Film": {
+          "Regular 16mm 4:3 gate": { w: 10.26, h: 7.49 },
+          "Regular 16mm 16:9 crop": { w: 10.26, h: 5.77 },
+          "Regular 16mm 1.85 crop": { w: 10.26, h: 5.55 },
+          "Regular 16mm 2.39 crop": { w: 10.26, h: 4.29 },
+          "Super 16mm full gate": { w: 12.52, h: 7.41 },
+          "Super 16mm 16:9 crop": { w: 12.52, h: 7.04 },
+          "Super 16mm 1.85 crop": { w: 12.52, h: 6.77 },
+          "Super 16mm 2.39 crop": { w: 12.52, h: 5.24 }
+        },
+        "35mm Film": {
+          "35mm Academy 1.37": { w: 21.95, h: 16.00 },
+          "35mm Full Aperture / Open Gate": { w: 24.89, h: 18.66 },
+          "35mm 1.66 crop": { w: 21.95, h: 13.22 },
+          "35mm 1.85 crop": { w: 21.95, h: 11.86 },
+          "35mm 2.39 scope projection area": { w: 21.95, h: 9.19 },
+          "35mm 4-perf anamorphic 2x": { w: 21.95, h: 18.60 },
+          "35mm 3-perf 1.78": { w: 24.89, h: 14.00 },
+          "35mm 3-perf 1.85": { w: 24.89, h: 13.45 },
+          "35mm 3-perf 2.39 crop": { w: 24.89, h: 10.41 },
+          "35mm 2-perf Techniscope 2.39": { w: 22.00, h: 9.47 }
+        },
+        "Super 35 Film": {
+          "Super 35 4-perf full aperture": { w: 24.89, h: 18.66 },
+          "Super 35 4-perf 16:9 crop": { w: 24.89, h: 14.00 },
+          "Super 35 4-perf 1.85 crop": { w: 24.89, h: 13.45 },
+          "Super 35 4-perf 2.39 crop": { w: 24.89, h: 10.41 },
+          "Super 35 3-perf 16:9": { w: 24.89, h: 14.00 },
+          "Super 35 3-perf 2.39 crop": { w: 24.89, h: 10.41 },
+          "Super 35 2-perf 2.39": { w: 24.89, h: 10.41 }
+        },
+        "65mm / 70mm Film": {
+          "65mm 5-perf 2.20": { w: 52.48, h: 23.01 },
+          "70mm projection 2.20": { w: 48.56, h: 22.10 },
+          "65mm 5-perf 2.39 crop": { w: 52.48, h: 21.96 },
+          "65mm 5-perf 1.85 crop": { w: 42.57, h: 23.01 },
+          "65mm 8-perf horizontal": { w: 52.63, h: 37.75 }
+        },
+        "IMAX Film": {
+          "IMAX 15/70 full frame 1.43": { w: 70.41, h: 52.63 },
+          "IMAX 15/70 1.90 crop": { w: 70.41, h: 37.06 },
+          "IMAX 15/70 2.39 crop": { w: 70.41, h: 29.46 }
+        }
       }
     };
 
@@ -650,7 +701,7 @@
         { name: "45mm T3.9", focal: 45, tstop: 3.9 },
         { name: "65mm T3.8", focal: 65, tstop: 3.8 },
         { name: "80mm T2.9", focal: 80, tstop: 2.9 },
-        { name: "90mm T4", focal: 90, tstop: 4.0 },
+        { name: "90mm T3", focal: 90, tstop: 3.0 },
         { name: "120mm T2.9", focal: 120, tstop: 2.9 }
       ],
       "DZO Vespid": [
@@ -683,8 +734,8 @@
       "Voigtländer Zoomar": [
         { name: "Zoomar 36–82mm T3.1", focal: 50, minFocal: 36, maxFocal: 82, tstop: 3.1, type: "zoom" }
       ],
-      "Titan Zoom": [
-        { name: "Titan Zoom 29–120mm T2.9", focal: 50, minFocal: 29, maxFocal: 120, tstop: 2.9, type: "zoom" }
+      "Musashi Zoom": [
+        { name: "Musashi Zoom 29–120mm T2.9", focal: 50, minFocal: 29, maxFocal: 120, tstop: 2.9, type: "zoom" }
       ]
     };
 
@@ -697,7 +748,7 @@
       nearOut: q("nearOut"), farOut: q("farOut"), dofOut: q("dofOut"), hyperfocalOut: q("hyperfocalOut"),
       heroEquivalentOut: q("heroEquivalentOut"), heroEquivalentSub: q("heroEquivalentSub"), cameraAOut: q("cameraAOut"), cameraBOut: q("cameraBOut"), cropAOut: q("cropAOut"), cropBOut: q("cropBOut"),
       eqFocalOut: q("eqFocalOut"), eqTOut: q("eqTOut"), ffEqOut: q("ffEqOut"), summaryOut: q("summaryOut"),
-      dofBar: q("dofBar"), copyBtn: q("copyBtn"), resetBtn: q("resetBtn")
+      dofBar: q("dofBar"), copyBtn: q("copyBtn")
     };
 
     function clearSelect(sel) { sel.innerHTML = ""; }
@@ -969,7 +1020,6 @@
       els.lensSeriesA.addEventListener("change", fillLensesForSeries);
       els.lensA.addEventListener("change", applyLensPreset);
       els.copyBtn.addEventListener("click", copyResult);
-      els.resetBtn.addEventListener("click", setDefaults);
     }
 
     init();
