@@ -213,7 +213,8 @@
 
     .visual-stage {
       position: relative;
-      height: 260px;
+      width: 100%;
+      aspect-ratio: 16 / 9;
       border-radius: 14px;
       border: 1px solid #2d2d2d;
       overflow: hidden;
@@ -267,8 +268,9 @@
     }
 
     .sensor-b-box {
-      border-color: rgba(255,255,255,0.72);
+      border-color: rgba(55,163,255,0.82);
       border-style: dashed;
+      box-shadow: 0 0 14px rgba(55,163,255,0.22);
     }
 
     .person {
@@ -870,7 +872,7 @@
       lensSeriesA: q("lensSeriesA"), lensA: q("lensA"), focalA: q("focalA"), tstopPresetA: q("tstopPresetA"), tstopCustomA: q("tstopCustomA"), tstopLimitHint: q("tstopLimitHint"),
       distance: q("distance"),
       nearOut: q("nearOut"), farOut: q("farOut"), dofOut: q("dofOut"), hyperfocalOut: q("hyperfocalOut"),
-      heroEquivalentOut: q("heroEquivalentOut"), heroEquivalentSub: q("heroEquivalentSub"), sensorABox: q("sensorABox"), sensorBBox: q("sensorBBox"), personVisual: q("personVisual"), visualizerNote: q("visualizerNote"), cameraAOut: q("cameraAOut"), cameraBOut: q("cameraBOut"), cropAOut: q("cropAOut"), cropBOut: q("cropBOut"),
+      heroEquivalentOut: q("heroEquivalentOut"), heroEquivalentSub: q("heroEquivalentSub"), visualStage: q("visualStage"), sensorABox: q("sensorABox"), sensorBBox: q("sensorBBox"), personVisual: q("personVisual"), visualizerNote: q("visualizerNote"), cameraAOut: q("cameraAOut"), cameraBOut: q("cameraBOut"), cropAOut: q("cropAOut"), cropBOut: q("cropBOut"),
       eqFocalOut: q("eqFocalOut"), eqTOut: q("eqTOut"), ffEqOut: q("ffEqOut"), summaryOut: q("summaryOut"),
       dofBar: q("dofBar"), copyBtn: q("copyBtn")
     };
@@ -1016,14 +1018,14 @@
     function updateVisualizer(sensorA, sensorB, focal, distanceM, eqFocalB) {
       if (!els.sensorABox || !els.sensorBBox || !els.personVisual) return;
 
-      const pad = 0.88;
-      const maxW = Math.max(sensorA.w, sensorB.w);
-      const maxH = Math.max(sensorA.h, sensorB.h);
+      if (els.visualStage) {
+        els.visualStage.style.aspectRatio = `${sensorA.w} / ${sensorA.h}`;
+      }
 
-      const boxAWidth = (sensorA.w / maxW) * 100 * pad;
-      const boxAHeight = (sensorA.h / maxH) * 100 * pad;
-      const boxBWidth = (sensorB.w / maxW) * 100 * pad;
-      const boxBHeight = (sensorB.h / maxH) * 100 * pad;
+      const boxAWidth = 100;
+      const boxAHeight = 100;
+      const boxBWidth = (sensorB.w / sensorA.w) * 100;
+      const boxBHeight = (sensorB.h / sensorA.h) * 100;
 
       els.sensorABox.style.width = `${boxAWidth}%`;
       els.sensorABox.style.height = `${boxAHeight}%`;
@@ -1033,7 +1035,7 @@
       // Portrait framing logic:
       // Sensor A is the reference frame. The subject's eyes sit on the upper third.
       // Sensor B is then shifted to the same eye-line instead of being center-cropped.
-      const sensorATop = (100 - boxAHeight) / 2;
+      const sensorATop = 0;
       const eyeLineY = sensorATop + (boxAHeight / 3);
       const sensorBTop = eyeLineY - (boxBHeight / 3);
 
@@ -1045,7 +1047,15 @@
       const frameHeightAtDistanceM = distanceM * (sensorA.h / focal);
       const subjectFractionInSensorA = subjectHeightM / frameHeightAtDistanceM;
       const personHeightInStage = subjectFractionInSensorA * boxAHeight;
-      const personHeight = Math.max(5, Math.min(420, personHeightInStage));
+
+      // Soft compression keeps near-focus shots readable without flattening
+      // everything into the same hard-clamped size.
+      const visualMin = 5;
+      const visualMax = 180;
+      const maxExpectedRaw = 2000;
+      const compressed = Math.log1p(Math.max(0, personHeightInStage));
+      const compressedMax = Math.log1p(maxExpectedRaw);
+      const personHeight = visualMin + (Math.min(compressed, compressedMax) / compressedMax) * (visualMax - visualMin);
 
       const personTop = eyeLineY - (personHeight * eyeFractionFromTop);
       const personBottom = 100 - (personTop + personHeight);
@@ -1053,7 +1063,7 @@
       els.personVisual.style.height = `${personHeight}%`;
       els.personVisual.style.bottom = `${personBottom}%`;
 
-      els.visualizerNote.textContent = `Portrait frame: ogen/gezicht op de bovenste thirds-lijn. Sensor B wordt op dezelfde eye-line uitgelijnd, dus kleinere crop modes schuiven omhoog i.p.v. simpel center crop.`;
+      els.visualizerNote.textContent = `Portrait frame: ogen/gezicht op de bovenste thirds-lijn. Sensor B wordt op dezelfde eye-line uitgelijnd, dus kleinere crop modes schuiven omhoog i.p.v. simpel center crop. Subject in frame A: ~${formatNumber(subjectFractionInSensorA, 1)}x framehoogte (visual is gecomprimeerd voor leesbaarheid).`;
     }
 
     function calculate() {
