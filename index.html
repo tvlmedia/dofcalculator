@@ -280,7 +280,6 @@
       filter: drop-shadow(0 12px 18px rgba(0,0,0,0.55));
       z-index: 4;
       min-height: 12px;
-      max-height: 240px;
     }
 
     .person svg {
@@ -1046,7 +1045,7 @@
       const frameHeightAtDistanceM = distanceM * (sensorA.h / focal);
       const subjectFractionInSensorA = subjectHeightM / frameHeightAtDistanceM;
       const personHeightInStage = subjectFractionInSensorA * boxAHeight;
-      const personHeight = Math.max(5, Math.min(92, personHeightInStage));
+      const personHeight = Math.max(5, Math.min(420, personHeightInStage));
 
       const personTop = eyeLineY - (personHeight * eyeFractionFromTop);
       const personBottom = 100 - (personTop + personHeight);
