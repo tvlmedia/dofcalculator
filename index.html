@@ -508,9 +508,52 @@
             <div class="sensor-box sensor-a-box" id="sensorABox"><span>Sensor A</span></div>
             <div class="sensor-box sensor-b-box" id="sensorBBox"><span>Sensor B</span></div>
             <div class="person" id="personVisual" aria-label="1.75 meter subject visual">
-              <svg viewBox="0 0 120 300" preserveAspectRatio="xMidYMax meet">
-                <path d="M60 18c17 0 30 14 30 31s-13 31-30 31-30-14-30-31 13-31 30-31Z" fill="currentColor" opacity="0.95"/>
-                <path d="M47 86h26c11 0 19 8 22 21l13 59c2 9-4 16-12 16h-8l10 91c1 8-5 15-13 15H75c-7 0-12-5-13-12l-5-64-5 64c-1 7-6 12-13 12H25c-8 0-14-7-13-15l10-91h-8c-8 0-14-7-12-16l13-59c3-13 11-21 22-21Z" fill="currentColor" opacity="0.95"/>
+              <svg viewBox="0 0 1200 3200" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Original female reference model">
+                <defs>
+                  <linearGradient id="skinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#f4c3a4"/>
+                    <stop offset="100%" stop-color="#dea783"/>
+                  </linearGradient>
+                  <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#c79250"/>
+                    <stop offset="55%" stop-color="#ad7338"/>
+                    <stop offset="100%" stop-color="#8d5828"/>
+                  </linearGradient>
+                  <linearGradient id="topGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#ffffff"/>
+                    <stop offset="100%" stop-color="#e9edf3"/>
+                  </linearGradient>
+                  <linearGradient id="denimGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#8cb8df"/>
+                    <stop offset="100%" stop-color="#5f90bc"/>
+                  </linearGradient>
+                </defs>
+
+                <path d="M312 1120c-28-270 50-558 286-652 78-31 172-31 250 0 246 98 314 394 283 665-33 290-182 436-408 436-227 0-383-151-411-449Z" fill="url(#hairGrad)"/>
+                <ellipse cx="600" cy="620" rx="188" ry="230" fill="url(#skinGrad)"/>
+                <rect x="546" y="816" width="108" height="128" rx="52" fill="url(#skinGrad)"/>
+
+                <path d="M404 1128c14-96 74-167 152-194 67-24 219-24 286 0 79 28 137 94 155 194l59 365c9 56-29 108-86 117l-84 14-11 1029h-209l-52-816h-29l-52 816H324l-11-1029-84-14c-57-9-95-62-86-117l61-365Z" fill="url(#topGrad)"/>
+                <path d="M350 1172c-55 40-100 106-127 186l-68 212c-22 70 30 139 102 136l78-2 36-204-20 306-105 754c-11 80 50 151 131 151h127l81-975h31l81 975h128c80 0 141-71 131-151l-106-754-20-306 37 204 77 2c73 2 125-67 103-136l-68-212c-26-80-71-146-127-186h-162l-22 60h-152l-22-60H350Z" fill="url(#denimGrad)"/>
+
+                <path d="M532 1696c-34 177-66 632-57 974M668 1696c34 177 66 632 57 974" stroke="#75a3cd" stroke-width="11" stroke-linecap="round" opacity="0.8"/>
+                <path d="M473 1700h254" stroke="#7faed7" stroke-width="12" opacity="0.55"/>
+
+                <path d="M275 1145c-86 38-142 109-174 196l-76 204c-17 45 17 93 66 93h108l91-393-15 421-62 346-129-8c-47-3-82 44-61 87l53 111c24 50 74 83 130 85l134 3 87-382 7-476-159-287Z" fill="url(#skinGrad)"/>
+                <path d="M927 1145c86 38 142 109 174 196l76 204c17 45-17 93-66 93H1003l-91-393 15 421 62 346 129-8c47-3 82 44 61 87l-53 111c-24 50-74 83-130 85l-134 3-87-382-7-476 159-287Z" fill="url(#skinGrad)"/>
+                <ellipse cx="410" cy="1658" rx="60" ry="62" fill="url(#skinGrad)"/>
+                <ellipse cx="790" cy="1658" rx="60" ry="62" fill="url(#skinGrad)"/>
+
+                <path d="M472 505c48-56 100-84 128-90 29 6 80 34 129 90 40 46 62 108 62 169 0 120-85 217-191 217-105 0-190-97-190-217 0-61 23-123 62-169Z" fill="url(#skinGrad)"/>
+                <path d="M432 508c42-112 165-198 286-198 126 0 246 89 286 206 29 85 13 187-46 256-25 29-59 46-95 48-57 4-90-42-113-80-21-35-35-79-80-79-46 0-61 45-81 79-23 38-56 85-114 80-35-3-69-19-94-46-66-73-84-187-49-266Z" fill="url(#hairGrad)"/>
+                <path d="M401 758c10 214 22 488-44 687-13 40-54 63-94 50-38-12-60-52-51-91 53-226 56-441 35-666 53-22 101-22 154 20Z" fill="url(#hairGrad)"/>
+                <path d="M799 758c-10 214-22 488 44 687 13 40 54 63 94 50 38-12 60-52 51-91-53-226-56-441-35-666-53-22-101-22-154 20Z" fill="url(#hairGrad)"/>
+
+                <path d="M531 608c18 0 31 14 31 31s-13 30-31 30-31-13-31-30 13-31 31-31ZM669 608c18 0 31 14 31 31s-13 30-31 30-31-13-31-30 13-31 31-31Z" fill="#7d4f31" opacity="0.22"/>
+                <path d="M537 760c41 31 85 47 126 47s85-16 126-47" fill="none" stroke="#cf8d72" stroke-width="17" stroke-linecap="round"/>
+                <ellipse cx="532" cy="640" rx="11" ry="8" fill="#7b4a2c"/>
+                <ellipse cx="668" cy="640" rx="11" ry="8" fill="#7b4a2c"/>
+                <path d="M568 692c18 14 46 14 64 0" fill="none" stroke="#c98b72" stroke-width="9" stroke-linecap="round"/>
               </svg>
             </div>
           </div>
