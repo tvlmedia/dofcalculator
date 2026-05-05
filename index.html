@@ -224,11 +224,26 @@
       background-size: 24px 24px, 24px 24px, auto;
     }
 
+    .visual-stage::before,
+    .visual-stage::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: rgba(255,255,255,0.16);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .visual-stage::before { top: 33.333%; }
+    .visual-stage::after { top: 66.666%; }
+
     .sensor-box {
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%, -50%);
+      transform: translateX(-50%);
       border: 2px solid rgba(255,255,255,0.85);
       border-radius: 8px;
       pointer-events: none;
@@ -1016,21 +1031,30 @@
       els.sensorBBox.style.width = `${boxBWidth}%`;
       els.sensorBBox.style.height = `${boxBHeight}%`;
 
+      // Portrait framing logic:
+      // Sensor A is the reference frame. The subject's eyes sit on the upper third.
+      // Sensor B is then shifted to the same eye-line instead of being center-cropped.
+      const sensorATop = (100 - boxAHeight) / 2;
+      const eyeLineY = sensorATop + (boxAHeight / 3);
+      const sensorBTop = eyeLineY - (boxBHeight / 3);
+
+      els.sensorABox.style.top = `${sensorATop}%`;
+      els.sensorBBox.style.top = `${sensorBTop}%`;
+
       const subjectHeightM = 1.75;
+      const eyeFractionFromTop = 0.165;
       const frameHeightAtDistanceM = distanceM * (sensorA.h / focal);
       const subjectFractionInSensorA = subjectHeightM / frameHeightAtDistanceM;
       const personHeightInStage = subjectFractionInSensorA * boxAHeight;
+      const personHeight = Math.max(5, Math.min(92, personHeightInStage));
 
-      els.personVisual.style.height = `${Math.max(5, Math.min(92, personHeightInStage))}%`;
+      const personTop = eyeLineY - (personHeight * eyeFractionFromTop);
+      const personBottom = 100 - (personTop + personHeight);
 
-      const aBottom = 50 + (boxAHeight / 2);
-      els.personVisual.style.bottom = `${100 - aBottom}%`;
+      els.personVisual.style.height = `${personHeight}%`;
+      els.personVisual.style.bottom = `${personBottom}%`;
 
-      const frameText = frameHeightAtDistanceM >= 1
-        ? `${formatNumber(frameHeightAtDistanceM, 2)}m vertical frame height`
-        : `${Math.round(frameHeightAtDistanceM * 100)}cm vertical frame height`;
-
-      els.visualizerNote.textContent = `Op sensor A vult een persoon van 1.75m ongeveer ${formatNumber(subjectFractionInSensorA * 100, 1)}% van de verticale framehoogte. Sensor B equivalent blijft visueel vergelijkbaar met ±${formatNumber(eqFocalB, 1)}mm.`;
+      els.visualizerNote.textContent = `Portrait frame: ogen/gezicht op de bovenste thirds-lijn. Sensor B wordt op dezelfde eye-line uitgelijnd, dus kleinere crop modes schuiven omhoog i.p.v. simpel center crop.`;
     }
 
     function calculate() {
@@ -1158,17 +1182,4 @@
       els.tstopCustomA.addEventListener("input", () => {
         const clamped = clampTStop(els.tstopCustomA.value);
         if (String(els.tstopCustomA.value) !== String(clamped)) els.tstopCustomA.value = clamped;
-        fillTStopPresets();
-        els.tstopPresetA.value = "custom";
-        calculate();
-      });
-
-      els.lensSeriesA.addEventListener("change", fillLensesForSeries);
-      els.lensA.addEventListener("change", applyLensPreset);
-      els.copyBtn.addEventListener("click", copyResult);
-    }
-
-    init();
-  </script>
-</body>
-</html>
+        f
