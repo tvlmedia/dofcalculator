@@ -1181,5 +1181,20 @@
 
       els.tstopCustomA.addEventListener("input", () => {
         const clamped = clampTStop(els.tstopCustomA.value);
-        if (String(els.tstopCustomA.value) !== String(clamped)) els.tstopCustomA.value = clamped;
-        f
+        if (String(els.tstopCustomA.value) !== String(clamped)) {
+          els.tstopCustomA.value = clamped;
+        }
+        fillTStopPresets();
+        els.tstopPresetA.value = "custom";
+        calculate();
+      });
+
+      els.lensSeriesA.addEventListener("change", fillLensesForSeries);
+      els.lensA.addEventListener("change", applyLensPreset);
+      els.copyBtn.addEventListener("click", copyResult);
+    }
+
+    init();
+  </script>
+</body>
+</html>
