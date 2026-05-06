@@ -509,8 +509,8 @@
             <div class="sensor-box sensor-b-box" id="sensorBBox"><span>Sensor B</span></div>
             <div class="person" id="personVisual" aria-label="1.70 meter subject visual">
               <svg viewBox="0 0 120 300" preserveAspectRatio="xMidYMax meet">
-                <path d="M60 18c17 0 30 14 30 31s-13 31-30 31-30-14-30-31 13-31 30-31Z" fill="currentColor" opacity="0.95"/>
-                <path d="M47 86h26c11 0 19 8 22 21l13 59c2 9-4 16-12 16h-8l10 91c1 8-5 15-13 15H75c-7 0-12-5-13-12l-5-64-5 64c-1 7-6 12-13 12H25c-8 0-14-7-13-15l10-91h-8c-8 0-14-7-12-16l13-59c3-13 11-21 22-21Z" fill="currentColor" opacity="0.95"/>
+                <circle cx="60" cy="36" r="20" fill="currentColor" opacity="0.95"/>
+                <path d="M50 66h20c12 0 21 9 24 22l12 58c2 8-3 15-11 15h-9l9 118c1 8-5 14-13 14H74c-6 0-11-4-12-10l-4-77-4 77c-1 6-6 10-12 10H28c-8 0-14-6-13-14l9-118h-9c-8 0-13-7-11-15l12-58c3-13 12-22 24-22Z" fill="currentColor" opacity="0.95"/>
               </svg>
             </div>
           </div>
@@ -1051,9 +1051,9 @@
       els.sensorBBox.style.top = `${sensorBTop}%`;
 
       const subjectHeightM = SUBJECT_HEIGHT_M;
-      // WC-style icon has the "eye level" slightly higher than a realistic figure.
-      // This keeps framing closer to common portrait simulator compositions.
-      const eyeFractionFromTop = 0.12;
+      // WC-style icon: use a higher eye-line reference near top of the head
+      // so framing aligns better with portrait simulators.
+      const eyeFractionFromTop = 0.08;
       const frameHeightAtDistanceM = Math.max(0.001, distanceM) * (sensorA.h / focal);
       const subjectFractionInSensorA = subjectHeightM / frameHeightAtDistanceM;
       const personHeightInStage = subjectFractionInSensorA * boxAHeight;
